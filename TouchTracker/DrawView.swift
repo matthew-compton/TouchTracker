@@ -20,13 +20,13 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
             setNeedsDisplay()
         }
     }
-
+    
     @IBInspectable var currentLineColor: UIColor = UIColor.redColor() {
         didSet {
             setNeedsDisplay()
         }
     }
-
+    
     @IBInspectable var selectedLineColor: UIColor = UIColor.greenColor() {
         didSet {
             setNeedsDisplay()
