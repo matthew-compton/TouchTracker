@@ -72,11 +72,13 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         print("Recognized a tap")
         
         let point = gestureRecognizer.locationInView(self)
-        selectedLineIndex = indexOfLineAtPoint(point)
+        let selectedLineIndexNew = indexOfLineAtPoint(point)
         
-        // Grab the menu contorller
+        // Grab the menu controller
         let menu = UIMenuController.sharedMenuController()
-        if selectedLineIndex != nil {
+        if selectedLineIndexNew != nil && selectedLineIndexNew != selectedLineIndex {
+            // Replace with new index
+            selectedLineIndex = selectedLineIndexNew
             
             // Make DrawView the target of menu item action messages
             becomeFirstResponder()
@@ -214,8 +216,13 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     func moveLine(gestureRecognizer: UIPanGestureRecognizer) {
         print("Recognized a pan")
         
+        if selectedLineIndex != nil {
+            return
+        }
+        
         // If a line is selected
         if let index = selectedLineIndex {
+            
             // When the pan gesture recognizer changes its position
             if gestureRecognizer.state == .Changed {
                 let translation = gestureRecognizer.translationInView(self)
